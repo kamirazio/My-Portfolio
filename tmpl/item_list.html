@@ -1,13 +1,17 @@
 
-<% if(category == "work") { %>
-  <div class="spinner1"></div>
-<% } else { %>
-  <div class="spinner2">
-    <div class="double-bounce1"></div>
-    <div class="double-bounce2"></div>
-  </div>
-<% } %>
-<!-- <div class="thumb">
-  <img src="img/<%- nid %>-image.png" />
-</div> -->
-<p class="work_title"><%- title %></div>
+<p class="arrow"></p>
+<!-- <ul class="condition　<%- visibility === true ? 'display' : 'hide' %>" > -->
+<ul class="condition">
+  <li class="position">
+    <%- title %>
+  </li>
+  <li class="location">
+    <%- location %>
+  </li>
+  <li class="role">
+    <%- role %>
+  </li>
+  <li class="role">
+    <%- achievement %>
+  </li>
+</ul>

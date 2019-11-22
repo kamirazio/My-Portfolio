@@ -77,7 +77,7 @@ var NAVI_MODEL_VIEW = Backbone.View.extend({
   loadCanvas: function(name, order){
     // return;
     window.is_metaball_activate= false;
-    var canvas_file = "js/"+ name +".js";
+    var canvas_file = "js/art/"+ name +".js";
     try {
       lifegame_clear();
     }catch(error){    }
