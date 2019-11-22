@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="./css/cssreset-min.css">
+    <link rel="stylesheet" type="text/css" href="./libs/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <link rel="stylesheet" type="text/css" href="./css/animation-style.css">
+    <link rel="stylesheet" type="text/css" href="./css/animation-spinner.css">
+    <link rel="stylesheet" type="text/css" href="./css/animation-balloon.css">
+    <link rel="stylesheet" type="text/css" href="./css/style-zindex.css">
+
+    <!-- <link rel="stylesheet" type="text/css" href="./libs/font-awesome/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" type="text/css" href="./libs/font-awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="./libs/font-awesome/css/brands.min.css">
+    <link rel="stylesheet" type="text/css" href="./libs/font-awesome/css/solid.min.css">
+    <link rel="stylesheet" type="text/css" href="./libs/font-awesome/css/regular.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href='https://fonts.googleapis.com/css?family=Open+Sans:400,600'> -->
+    <!-- <link rel="stylesheet" type="text/css" 　href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700'> -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <![endif]-->
+    <title>KAMIRAZIO: Ai Nakajima's Portfolio </title>
+</head>
+
+<body>
+    <div id="model_wrapper">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+
+    <div class="wrap black_bg">
+        <div id="tops" class="section"></div>
+        <!--- //top --->
+
+        <div id="portfolio1" class="section"></div>
+        <!-- <div id="portfolio2" class="section"></div> -->
+        <!--- // works --->
+
+        <div id="about" class="section"></div>
+        <!--- // about --->
+
+        <div id="profile" class="section"></div>
+        <!--- // profile --->
+
+        <div id="history" class="section"></div>
+        <!--- // history --->
+
+        <div id="footer" class="section"></div>
+    </div>
+    <!--- //wrap --->
+
+    <script src="./libs/jquery-1.11.3.min.js"></script>
+    <script>
+        function showSpinner(_target) {
+            $('<div class="spinner_wrapper"><div class="loader">Loading...</div></div>').appendTo(_target);
+        }
+        function clearSpiner() {
+            $('.spinner_wrapper').remove();
+        }
+        showSpinner('body');
+        
+    </script>
+
+    <script src="./libs/bootstrap/js/bootstrap.js"></script>
+    <script src="./libs/underscore.js"></script>
+    <script src="./libs/backbone.js"></script>
+
+    <script src="./libs/Chart.js-master/Chart.js"></script>
+    <!-- paper.jsはcanvas="id名"で設定する -->
+    <script type="text/javascript" src="./libs/paper.js"></script>
+    <script type="text/paperscript" src="./js/metaball.js" canvas="metaball"></script>
+    <script src="./js/app_class.js"></script>
+    <script src="./js/BBApp.js"></script>
+    <script src="./js/BBNavi.js"></script>
+    <script src="./js/BBTimeline.js"></script>
+    <script src="./js/BBModal.js"></script>
+    <script src="./js/BBPortfolio.js"></script>
+    <script src="./js/BBWork.js"></script>
+    <script>
+        var app_v = new APP_VIEW();
+    </script>
+    <!-- <script src="./js/myscript.js"></script> -->
+    <!-- <script src="./js/myLifegame.js"></script> -->
+    <!-- <script src="./js/myInk.js"></script> -->
+    <!-- <script src="http:///www.google.com/jsapi/"></script> -->
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&language=en"></script> -->
+    <!-- <script src="./js/gmap.js"></script> -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-22917068-6"></script>
+    <script>
+        window.is_metaball_ready = false;
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'UA-22917068-6');
+    </script>
+</body>
+
+</html>

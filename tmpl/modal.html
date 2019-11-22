@@ -1,0 +1,41 @@
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <h4 class="modal-title" id="myModalLabel" style="text-align: center; color: white; margin-bottom: 10px;"><%- title %></h4>
+    <!-- carousel -->
+    <div class="modal-content">
+      <div id="carousel-example-generic" class="carousel slide" data-interval="false" data-ride="carousel" data-pause="hover">
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+
+        <% for(var i=0; i< slide_num; i++) { %>
+          <div class="item <% if( i == index ){ %>active <%- index %> <% }%>">
+            <img src="img/work_<%- nid %>_<%- i %>.png" alt="">
+            <!-- <img src="img/work_image<%- i %>.png" alt=""> -->
+          </div>
+        <% } %>
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+
+        <% for(var i=0; i< slide_num; i++) { %>
+          <li data-target="#carousel-example-generic" data-slide-to="<% i %>" class="<% if( i == index ){ %> active <%}%>"></li>
+        <% } %>
+        </ol>
+
+      </div>
+      <!-- //carousel -->
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+  </div>
+</div>
