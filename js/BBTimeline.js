@@ -14,16 +14,7 @@ var ITEM_MODEL = Backbone.Model.extend({
 });
 
 var ITEM_LIST = Backbone.Collection.extend({
-  model: ITEM_MODEL,
-  url: 'json/job_list.json',
-  // parse : function(resp) {
-  //   if (resp.error) {
-  //       // エラーがあればエラーメッセージ表示
-  //       alert(resp.error.message);
-  //   }
-  //   // モデルに格納するデータ部分を返す
-  //   return resp.data;
-  // }
+  model: ITEM_MODEL
 });
 
 var ITEM_MODEL_VIEW = Backbone.View.extend({
@@ -87,21 +78,22 @@ var JOB_LIST_VIEW = Backbone.View.extend({
     this.col = new ITEM_LIST();
         this.col.fetch({
           dataType : 'json',
-          error:  $.proxy(this.error, this),
-          success: $.proxy(this.renderYear, this)
+          url: 'json/job_list.json',
+          success: $.proxy(this.renderYear, this),
+          error:  $.proxy(this.error, this)
     });
   },
   renderYear: function() {
     for(var i = this.start_year; i<= this.current_year+1; i++){
-
       var timebox = $('<div/>',{
                       "class" : 'timebox'
                     }).html( i<=this.current_year ? i : 'Present');
+
       var jobbox = $('<div/>',{
                       "class" : 'jobbox'
                     });
       var workbox = $('<div/>',{
-                      "class" : 'workbox'
+                      "class" : 'edubox'
                     });
 
       var time_item = $('<li />', {
