@@ -3,6 +3,7 @@ var NAVI_MODEL = Backbone.Model.extend({
         "reference": "",
         "is_greeting_done": false,
         'is_menu_open': false,
+        // 'is_mobile_on': false,
         "order": 0,
         "number": 3,
         "canvas_list": ['metaball', 'lifegame', 'nodeloop']
@@ -19,7 +20,7 @@ var NAVI_MODEL_VIEW = Backbone.View.extend({
         'click #menu_next': 'gotoNext',
         'click #top-carousel-indicators li': 'canvasChange',
         'click .top-btn': 'gotoTop',
-        'click #navi1': 'gotoTop',
+        'click #navi1': 'homeButtonClicked',
         'click #navi2': 'toggleMenu',
         'click #navi3': 'goBack',
         'click #navi4': 'goAhead',
@@ -31,7 +32,7 @@ var NAVI_MODEL_VIEW = Backbone.View.extend({
         this.listenTo(this.model, 'change:is_greeting_done', this.hideGreetingBalloon);
         this.listenTo(this.model, 'change:is_menu_open', this.setMenu);
         //this.listenTo(this.model, 'change:is_in_top_page', this.showGreetingBalloon); 
-        this.setMenu();
+        // this.setMenu();
         // ========== read canvas ========== //
         var canvases = this.model.get("canvas_list");
         var list = _.shuffle(canvases);
@@ -52,16 +53,18 @@ var NAVI_MODEL_VIEW = Backbone.View.extend({
         this.loadCanvas(canvases[0], 0);
         this.showGreetingBalloon();
     },
-    showGreetingBalloon: function () {
-        if (this.model.get('is_greeting_done')) {
+    showGreetingBalloon: function (_switch) {
+        
+        var duration = _switch ? 0 : 3000;
+        if (!_switch && this.model.get('is_greeting_done')) {
             return
         } else {
             var balloon = $('#balloon')
-                .delay(3000)
+                .delay(duration)
                 .fadeIn(200)
                 .addClass('balloon-popup')
-                .delay(3000);
-            // .fadeOut(800);
+                .delay(3000)
+                .fadeOut(800);
             $('#header2').append(balloon);
             this.model.set('is_greeting_done', true);
         }
@@ -144,31 +147,11 @@ var NAVI_MODEL_VIEW = Backbone.View.extend({
         this.model.set('is_menu_open', !this.model.get('is_menu_open') );
     },
     setMenu: function () {
-        var menu_width = $("#main_menu").width();
-        // if(this.top_status[0]==0 && this.top_status[1]==0){
+        // var menu_width = $("#main_menu").width();
         if (!this.model.get('is_menu_open')) {
-            $('#panel1, #panel2').animate({
-                "width": '50%'
-            });
-            $("#main_menu").animate({
-                "marginRight": menu_width * (-1) + "px"
-            });
-            // $('.header_panel span').fadeIn();
+            $('#header').removeClass('menu--open');
         } else {
-            $('#panel1, #panel2').animate({
-                    "width": '25%'
-            });
-            $("#main_menu").animate({
-                "marginRight": "110px"
-            });
-            // $('#panel1,#navi1').animate({
-            //     "marginLeft": (menu_w) * (-1) + "px"
-            // });
-            // $('#panel2,#navi2').animate({
-            //     "marginRight": menu_w + "px"
-            // });
-            // $('.header_panel span').fadeOut();
-            // this.top_status[0] = 1;
+            $('#header').addClass('menu--open');
         }
     },
     gotoNext: function (e) {
@@ -181,6 +164,13 @@ var NAVI_MODEL_VIEW = Backbone.View.extend({
             scrollTop: p - 60
         }, 800);
         // this.navi_close();
+    },
+    homeButtonClicked: function(){
+        if(app_v.model.get('is_in_top_page')){
+            this.showGreetingBalloon(true);
+        }else{
+            this.gotoTop();
+        }
     },
     gotoTopic: function (e) {
         //Scroll in the page
@@ -242,44 +232,5 @@ var NAVI_MODEL_VIEW = Backbone.View.extend({
             scrollTop: 0
         }, 800);
         return false;
-    },
-    // contactMe: function(e){
-    //     if(this.top_status[0]==0 && this.top_status[1]==0){
-    //       $('html,body').animate({ scrollTop: 0 }, 800, function(){
-    //         $('#panel2>span, #panel1>span, #navi2>i').fadeOut(800);
-    //         $('#header2').animate({
-    //           "bottom": ((-1)* $('#header2').height())+"px",
-    //         },800);
-    //         $('#panel1').animate({
-    //           "height": $('#top').height()+"px",
-    //           "color": "#f8f8f8"
-    //         }, 800, function(){
-    //           $('canvas').fadeOut(800);
-    //           $('#top').append("<h1>hellow</h1>");
-    //           $('#panel2').animate({
-    //             "marginTop": -100+"px"
-    //           });
-    //         });
-    //       });
-    //       this.top_status[0]=1;
-    //     }else if(this.top_status[0]==1 && this.top_status[1]==0){
-    //       $('html,body').animate({ scrollTop: 0 }, 800, function(){
-    //         $('#header2').animate({
-    //           "bottom": "0",
-    //         },800, function(){
-    //         });
-    //         $('#panel1').animate({ "height": 100 +"px" }, 800, function(){
-    //           $('#panel2').animate({
-    //             "marginTop": "0px"
-    //           },400,function(){
-    //             $('#panel2').animate({ "height": 100 +"px" },100);
-    //             $('canvas').fadeIn(800);
-    //             $('#panel1>span, #panel2>span, #navi2>i').fadeIn(800);
-    //           });
-    //         });
-    //       });
-    //         this.top_status[0]=0;
-    //     }
-    //   return false;
-    // },
+    }
 });

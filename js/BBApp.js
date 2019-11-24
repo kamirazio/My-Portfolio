@@ -2,6 +2,7 @@ var APP_MODEL = Backbone.Model.extend({
 	defaults: {
 		"is_in_top_page": true,
 		"author": "KAMIRAZIO",
+		"is_mobile_on": false,
 		// "chart": false,
 		// "scroll": 0,
 		"current_page": null,
@@ -53,16 +54,17 @@ var APP_VIEW = Backbone.View.extend({
 		this.listenTo(this.model, 'change:current_page', this.pageChange);
 		this.listenTo(this.model, 'change:is_in_top_page', this.setTopPageEffect);
 		this.listenTo(this.model, 'change:is_in_top_page', this.animationCntrol);
+		this.listenTo(this.model, 'change:is_mobile_on', this.setMediaQuery);
 		// this.set_window();
 		this.render();
 
 		// ---- Event Listener : watching resize + scroll
 		$(window).resize(function () {
-			app_v.set_window();
+			window.app_v.set_window();
 		});
 		// watching scroll
 		$(window).scroll(function () {
-			app_v.scroll_window();
+			window.app_v.scroll_window();
 		});
 	},
 
@@ -70,6 +72,13 @@ var APP_VIEW = Backbone.View.extend({
 		console.log("window resized");
 		this.window_h = window.innerHeight;
 		this.window_w = window.innerWidth;
+
+		if(this.window_w > 600){
+			this.model.set('is_mobile_on', false);
+		}else{
+			this.model.set('is_mobile_on', true);	
+		}
+
 		$('#tops.section').height(this.window_h);
 		$('#screen').height(this.window_h);
 		$('.canvas').width(this.window_w);
@@ -88,6 +97,16 @@ var APP_VIEW = Backbone.View.extend({
 		console.log(section_list);
 		console.log(section_position_list);
 		this.scroll_window();
+	},
+
+	setMediaQuery: function(){
+		if(this.model.get('is_mobile_on')){
+			// navi_v.model.set('is_mobile_on', true);
+			$('section').addClass('mobile');
+		}else{
+			// navi_v.model.set('is_mobile_on', false);
+			$('section').removeClass('mobile');
+		}
 	},
 
 	getPageByTopPosition: function (_current_top_pos) {
@@ -162,9 +181,11 @@ var APP_VIEW = Backbone.View.extend({
 
 	setTopPageEffect: function () {
 		var circle = $('<i></i>', {
+			'id':'greeting_btn',
 			'class': 'fa fa-dot-circle'
 		});
 		var triangle = $('<i></i>', {
+			'id':'goto_top_btn',
 			'class': 'fas fa-play'
 		});
 		if (this.model.get('is_in_top_page')) {
@@ -175,7 +196,7 @@ var APP_VIEW = Backbone.View.extend({
 		} else {
 			$("#navi1").empty().append(triangle);
 			$(".spacer_anim, #header").addClass("show--minimize");
-			$("#navi1 i").removeClass('fa-dot-circle').addClass('fa-play');
+			// $("#navi1 i").removeClass('fa-dot-circle').addClass('fa-play');
 			$("#navi3, #navi4").fadeOut(1000);
 		}
 	},
