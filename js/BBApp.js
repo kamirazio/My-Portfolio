@@ -227,16 +227,27 @@ var APP_VIEW = Backbone.View.extend({
 			model: results[0],
 		});
 
-		var size = this.window_h > 500 ? this.window_h : 500;
+
+		// if(this.window_h > 500 && this.window_w > 900 ){
+		//     var size = this.window_h -200;	
+		// 	$('#myModal .modal-dialog')
+		// 		.empty()
+		// 		.append(modal_v.render().el)
+		// 		.width(size);
+		// }else{
+		// 	$('#myModal .modal-dialog')
+		// 	.empty()
+		// 	.append(modal_v.render().el);
+		// }
+
 		$('#myModal .modal-dialog')
 			.empty()
-			.append(modal_v.render().el)
-			.width(size + 'px');
+			.append(modal_v.render().el);
 
 		$('#myModal .carousel-inner .item')
 			.css({
-				'minHeight': size - 200 + 'px',
-				'height': 'auto'
+				// 'minHeight': size=='100%' ? '100%': size - 200 + 'px',
+				// 'height': 'auto'
 			})
 
 		// $('.modal-dialog').append(modal_v);

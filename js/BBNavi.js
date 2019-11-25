@@ -16,7 +16,7 @@ var NAVI_MODEL_VIEW = Backbone.View.extend({
     top_status: [0, 0],
     top_header: true,
     events: {
-        'click .m_menu': 'gotoTopic',
+        'click .m_menu': 'menuNaviOn',
         'click #menu_next': 'gotoNext',
         'click #top-carousel-indicators li': 'canvasChange',
         'click .top-btn': 'gotoTop',
@@ -24,12 +24,13 @@ var NAVI_MODEL_VIEW = Backbone.View.extend({
         'click #navi2': 'toggleMenu',
         'click #navi3': 'goBack',
         'click #navi4': 'goAhead',
+        'click #balloon .close_btn': 'hideGreetingBalloon',
     },
     // template: _.template(app.getTemplate('work_list')),
     initialize: function () {
         this.model = new NAVI_MODEL();
         this.listenTo(this.model, 'change:order', this.showCanvas);
-        this.listenTo(this.model, 'change:is_greeting_done', this.hideGreetingBalloon);
+        // this.listenTo(this.model, 'change:is_greeting_done', this.hideGreetingBalloon);
         this.listenTo(this.model, 'change:is_menu_open', this.setMenu);
         //this.listenTo(this.model, 'change:is_in_top_page', this.showGreetingBalloon); 
         // this.setMenu();
@@ -55,22 +56,34 @@ var NAVI_MODEL_VIEW = Backbone.View.extend({
     },
     showGreetingBalloon: function (_switch) {
         
-        var duration = _switch ? 0 : 3000;
+        // var duration = _switch ? 0 : 3000;
         if (!_switch && this.model.get('is_greeting_done')) {
             return
-        } else {
-            var balloon = $('#balloon')
-                .delay(duration)
-                .fadeIn(200)
-                .addClass('balloon-popup')
-                .delay(3000)
-                .fadeOut(800);
-            $('#header2').append(balloon);
-            this.model.set('is_greeting_done', true);
+        } 
+        
+        var balloon_height = $('#balloon').height()+100;
+
+        if(_switch){
+            var balloon = $('#balloon').fadeIn(200)
+                                    .addClass('balloon-popup')
+                                    .delay(4000)
+                                    .fadeOut(300); 
+        }else{
+            var balloon = $('#balloon').delay(3000)
+                                    .fadeIn(200)
+                                    .addClass('balloon-popup')
+                                    .delay(3500)
+                                    .fadeOut(300);
         }
+
+        $('#header2').append(balloon)
+        $(balloon).css({
+            'margin-top': -(balloon_height)+'px'
+            });
+        this.model.set('is_greeting_done', true);
     },
     hideGreetingBalloon: function () {
-        $('#balloon').fadeOut(1000);
+        $('#balloon').fadeOut(300);
     },
     showCanvas: function () {
         $('.carousel-inner .item .mycanvas').removeClass('white_base');
@@ -158,8 +171,6 @@ var NAVI_MODEL_VIEW = Backbone.View.extend({
         //Scroll in the page
         var i = $('.menu_next').index(e.currentTarget);
         var p = $('.section').eq(i + 1).offset().top; //要素の表示位置
-        console.log(i + "番地" + p + "pxへ行きます");
-        // $('html,body').animate({ scrollTop: p-120 }, 800);
         $('html,body').animate({
             scrollTop: p - 60
         }, 800);
@@ -172,12 +183,24 @@ var NAVI_MODEL_VIEW = Backbone.View.extend({
             this.gotoTop();
         }
     },
-    gotoTopic: function (e) {
+    naviToTopic: function (e) {
+        // //Scroll in the page
+        // this.toggleMenu();
+        // var i = $('.m_menu').index(e.currentTarget);
+        // var p = $('.section').eq(i).offset().top; //要素の表示位置
+        // // console.log(i + "番地" + p + "pxへ行きます");
+
+        // $('html,body').animate({
+        //     scrollTop: p - 120
+        // }, 800);
+        // // this.navi_close();
+    },
+    menuNaviOn: function (e) {
         //Scroll in the page
         this.toggleMenu();
         var i = $('.m_menu').index(e.currentTarget);
         var p = $('.section').eq(i).offset().top; //要素の表示位置
-        console.log(i + "番地" + p + "pxへ行きます");
+        // console.log(i + "番地" + p + "pxへ行きます");
 
         $('html,body').animate({
             scrollTop: p - 120
