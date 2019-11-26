@@ -36,6 +36,7 @@ var APP_VIEW = Backbone.View.extend({
 	},
 	initialize: function () {
 		this.model = new APP_MODEL();
+
 		$("#tops").append(this.template1());
 		$("#about").append(this.template2());
 		$("#portfolio1").append(this.template_portfolio1());
@@ -45,8 +46,8 @@ var APP_VIEW = Backbone.View.extend({
 		$("#footer").append(this.template6());
 
 		window.navi_v = new NAVI_MODEL_VIEW();
-		window.items_v = new JOB_LIST_VIEW();
 		window.works_v = new WORK_LIST_VIEW();
+		window.items_v = new JOB_LIST_VIEW();
 		window.portfolio_v = new PORTFOLIO_LIST_VIEW();
 
 		this.listenTo(this.model, 'change:current_page', this.pageChange);
