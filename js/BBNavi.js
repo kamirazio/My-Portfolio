@@ -69,10 +69,10 @@ var NAVI_MODEL_VIEW = Backbone.View.extend({
                                     .delay(4000)
                                     .fadeOut(300); 
         }else{
-            var balloon = $('#balloon').delay(3000)
+            var balloon = $('#balloon').delay(2000)
                                     .fadeIn(200)
                                     .addClass('balloon-popup')
-                                    .delay(3500)
+                                    .delay(4500)
                                     .fadeOut(300);
         }
 
