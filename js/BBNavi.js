@@ -3,7 +3,6 @@ var NAVI_MODEL = Backbone.Model.extend({
         "reference": "",
         "is_greeting_done": false,
         'is_menu_open': false,
-        // 'is_mobile_on': false,
         "order": 0,
         "number": 3,
         "canvas_list": ['metaball', 'lifegame', 'nodeloop']
@@ -11,7 +10,7 @@ var NAVI_MODEL = Backbone.Model.extend({
 });
 
 var NAVI_MODEL_VIEW = Backbone.View.extend({
-    el: $('.wrap'),
+    el: '.wrap',
     canvas_status: "center",
     top_status: [0, 0],
     top_header: true,
@@ -26,7 +25,6 @@ var NAVI_MODEL_VIEW = Backbone.View.extend({
         'click #navi4': 'goAhead',
         'click #balloon .close_btn': 'hideGreetingBalloon',
     },
-    // template: _.template(app.getTemplate('work_list')),
     initialize: function () {
         this.model = new NAVI_MODEL();
         this.listenTo(this.model, 'change:order', this.showCanvas);
@@ -55,24 +53,20 @@ var NAVI_MODEL_VIEW = Backbone.View.extend({
         this.showGreetingBalloon();
     },
     showGreetingBalloon: function (_switch) {
-        
-        // var duration = _switch ? 0 : 3000;
         if (!_switch && this.model.get('is_greeting_done')) {
             return
         } 
-        
         var balloon_height = $('#balloon').height()+100;
-
         if(_switch){
             var balloon = $('#balloon').fadeIn(200)
                                     .addClass('balloon-popup')
-                                    .delay(4000)
+                                    .delay(6000)
                                     .fadeOut(300); 
         }else{
             var balloon = $('#balloon').delay(2000)
                                     .fadeIn(200)
                                     .addClass('balloon-popup')
-                                    .delay(4500)
+                                    .delay(6000)
                                     .fadeOut(300);
         }
 
@@ -167,6 +161,11 @@ var NAVI_MODEL_VIEW = Backbone.View.extend({
             $('#header').addClass('menu--open');
         }
     },
+    closeMenu: function(){
+		if(navi_v.model.get('is_menu_open')){
+			navi_v.model.set('is_menu_open',false);
+		}
+	},
     gotoNext: function (e) {
         //Scroll in the page
         var i = $('.menu_next').index(e.currentTarget);

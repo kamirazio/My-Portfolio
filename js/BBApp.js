@@ -11,9 +11,7 @@ var APP_MODEL = Backbone.Model.extend({
 });
 
 var APP_VIEW = Backbone.View.extend({
-	el: $('.wrap'),
-	navi_status: "close",
-	// template0: _.template(app.getTemplate('menu')),
+	el: '.wrap',	
 	template1: _.template(app.getTemplate('top')),
 	template2: _.template(app.getTemplate('about')),
 	template_portfolio1: _.template(app.getTemplate('portfolio1')),
@@ -55,21 +53,24 @@ var APP_VIEW = Backbone.View.extend({
 		this.listenTo(this.model, 'change:is_in_top_page', this.setTopPageEffect);
 		this.listenTo(this.model, 'change:is_in_top_page', this.animationCntrol);
 		this.listenTo(this.model, 'change:is_mobile_on', this.setMediaQuery);
-		// this.set_window();
+
 		this.render();
 
 		// ---- Event Listener : watching resize + scroll
 		$(window).resize(function () {
 			window.app_v.set_window();
+			window.navi_v.closeMenu();
 		});
 		// watching scroll
 		$(window).scroll(function () {
 			window.app_v.scroll_window();
+			window.navi_v.closeMenu();
 		});
 	},
 
 	set_window: function () {
 		console.log("window resized");
+
 		this.window_h = window.innerHeight;
 		this.window_w = window.innerWidth;
 
@@ -257,7 +258,6 @@ var APP_VIEW = Backbone.View.extend({
 			pause: "hover"
 		});
 	},
-
 	scroll_window: function () {
 		var scroll_top = $(window).scrollTop();
 		var window_h = $(window).height();
